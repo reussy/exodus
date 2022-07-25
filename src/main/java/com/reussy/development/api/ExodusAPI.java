@@ -2,7 +2,10 @@ package com.reussy.development.api;
 
 import com.reussy.development.bukkit.builder.ItemStackBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -102,4 +105,14 @@ public interface ExodusAPI {
      */
     void send(List<Player> players, String message);
 
+    /**
+     * Teleport the entity to the location asynchronously.
+     *
+     * @param entity The entity to teleport.
+     * @param location The location to teleport to.
+     * @param teleportCause The teleport cause.
+     * @return The future of the teleport. True if the teleport was successful, otherwise false.
+     * @apiNote Only Paper fork can run this method asynchronously.
+     */
+    boolean teleport(Entity entity, Location location, PlayerTeleportEvent.TeleportCause teleportCause);
 }

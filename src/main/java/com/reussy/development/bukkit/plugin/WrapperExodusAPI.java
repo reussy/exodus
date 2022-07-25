@@ -2,10 +2,14 @@ package com.reussy.development.bukkit.plugin;
 
 import com.reussy.development.api.ExodusAPI;
 import com.reussy.development.bukkit.builder.ItemStackBuilder;
+import com.reussy.development.bukkit.helper.BukkitEntityHelper;
 import com.reussy.development.bukkit.helper.BukkitInventoryHelper;
 import com.reussy.development.bukkit.helper.BukkitServerHelper;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -16,11 +20,13 @@ public class WrapperExodusAPI implements ExodusAPI {
     private final ItemStackBuilder itemStackBuilder;
     private final BukkitServerHelper bukkitServerHelper;
     private final BukkitInventoryHelper bukkitInventoryHelper;
+    private final BukkitEntityHelper bukkitEntityHelper;
 
     public WrapperExodusAPI() {
+        this.itemStackBuilder = new ItemStackBuilder();
         this.bukkitInventoryHelper = new BukkitInventoryHelper();
         this.bukkitServerHelper = new BukkitServerHelper();
-        this.itemStackBuilder = new ItemStackBuilder();
+        this.bukkitEntityHelper = new BukkitEntityHelper();
     }
 
     /**
@@ -146,5 +152,19 @@ public class WrapperExodusAPI implements ExodusAPI {
     @Override
     public void send(List<Player> players, String message) {
         bukkitServerHelper.send(players, message);
+    }
+
+    /**
+     * Teleport the entity to the location asynchronously.
+     *
+     * @param entity        The entity to teleport.
+     * @param location      The location to teleport to.
+     * @param teleportCause The teleport cause.
+     * @return The future of the teleport. True if the teleport was successful, otherwise false.
+     * @apiNote Only Paper fork can run this method asynchronously.
+     */
+    @Override
+    public boolean teleport(Entity entity, Location location, PlayerTeleportEvent.TeleportCause teleportCause) {
+        return bukkitEntityHelper.teleport(entity, location, teleportCause);
     }
 }
