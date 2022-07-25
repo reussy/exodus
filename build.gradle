@@ -39,9 +39,9 @@ shadowJar {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId = 'org.eljabali.sami.example'
-            artifactId = 'example'
-            version = '0.1'
+            groupId = 'com.reussy.development'
+            artifactId = 'exodus'
+            version = '0.0.1'
 
             from components.java
         }
