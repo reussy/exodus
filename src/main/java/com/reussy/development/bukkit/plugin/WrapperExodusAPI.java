@@ -17,13 +17,11 @@ import java.util.List;
 
 public class WrapperExodusAPI implements ExodusAPI {
 
-    private final ItemStackBuilder itemStackBuilder;
     private final BukkitServerHelper bukkitServerHelper;
     private final BukkitInventoryHelper bukkitInventoryHelper;
     private final BukkitEntityHelper bukkitEntityHelper;
 
     public WrapperExodusAPI() {
-        this.itemStackBuilder = new ItemStackBuilder();
         this.bukkitInventoryHelper = new BukkitInventoryHelper();
         this.bukkitServerHelper = new BukkitServerHelper();
         this.bukkitEntityHelper = new BukkitEntityHelper();
@@ -36,7 +34,7 @@ public class WrapperExodusAPI implements ExodusAPI {
      */
     @Override
     public ItemStackBuilder getItemStackBuilder() {
-        return itemStackBuilder;
+        return new ItemStackBuilder();
     }
 
     /**
