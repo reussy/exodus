@@ -36,6 +36,17 @@ shadowJar {
     relocate "io.papermc.lib", "com.reussy.development.libs.paperlib"
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'org.gradle.sample'
+            artifactId = 'library'
+            version = '1.1'
+            from components.java
+        }
+    }
+}
+
 test {
     useJUnitPlatform()
 }
