@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.reussy.development'
-version '1.0.0'
+version '1.0.0-SNAPSHOT'
 
 repositories {
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
@@ -15,7 +15,10 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-    compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT' // The Spigot API with no shadowing. Requires the OSS repo.
+    compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT' // The Spigot API with no shadowing.
+    compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT' // The Bungeecord API with no shadowing.
+    compileOnly 'org.spigotmc:plugin-annotations:1.2.3-SNAPSHOT'
+    annotationProcessor 'org.spigotmc:plugin-annotations:1.2.3-SNAPSHOT'
 }
 
 test {
