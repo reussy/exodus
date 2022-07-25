@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
 group 'com.reussy.development'
@@ -7,18 +8,28 @@ version '1.0.0-SNAPSHOT'
 
 repositories {
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url = "https://papermc.io/repo/repository/maven-public/" }
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+
     mavenCentral()
 }
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT' // The Spigot API with no shadowing.
     compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT' // The Bungeecord API with no shadowing.
     compileOnly 'org.spigotmc:plugin-annotations:1.2.3-SNAPSHOT'
+
     annotationProcessor 'org.spigotmc:plugin-annotations:1.2.3-SNAPSHOT'
+
+    implementation "io.papermc:paperlib:1.0.7"
+}
+
+shadowJar {
+    relocate "io.papermc.lib", "com.reussy.development.libs.paperlib"
 }
 
 test {
