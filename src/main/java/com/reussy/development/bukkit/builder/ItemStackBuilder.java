@@ -19,7 +19,6 @@ import java.util.Map;
 
 @SuppressWarnings("UnusedReturnValue")
 public class ItemStackBuilder {
-
     private final ItemStack itemStack;
     private final ItemMeta itemMeta;
     private final SkullMeta skullMeta;
@@ -118,56 +117,88 @@ public class ItemStackBuilder {
         return this;
     }
 
-    public ItemStack build() {
-        itemStack.setItemMeta(itemMeta);
+    private ItemStack applyMaterial(final ConfigurationSection configurationSection) {
+        if (configurationSection == null) return itemStack;
+        if (!configurationSection.isString("material")) return itemStack;
+        setMaterial(Material.valueOf(configurationSection.getString("material")));
+        return itemStack;
+    }
+
+    private ItemStack applySkullOwner(final ConfigurationSection configurationSection) {
+        if (configurationSection == null) return itemStack;
+        if (!configurationSection.isString("skull-owner")) return itemStack;
+        String material = configurationSection.getString("material");
+        if (material == null) return itemStack;
+        if (!material.equalsIgnoreCase("PLAYER_HEAD")) return itemStack;
+        setSkullOwner(configurationSection.getString("skull-owner"));
+        return itemStack;
+    }
+
+    private ItemStack applyAmount(final ConfigurationSection configurationSection) {
+        if (configurationSection == null) return itemStack;
+        if (!configurationSection.isInt("amount")) return itemStack;
+        setAmount(configurationSection.getInt("amount"));
+        return itemStack;
+    }
+
+    private ItemStack applyDisplayName(final ConfigurationSection configurationSection) {
+        if (configurationSection == null) return itemStack;
+        if (!configurationSection.isString("display-name")) return itemStack;
+        setDisplayName(configurationSection.getString("display-name"));
+        return itemStack;
+    }
+
+    private ItemStack applyLore(final ConfigurationSection configurationSection) {
+        if (configurationSection == null) return itemStack;
+        if (!configurationSection.isList("lore")) return itemStack;
+        setLore(configurationSection.getStringList("lore"));
+        return itemStack;
+    }
+
+    private ItemStack applyCustomModelData(final ConfigurationSection configurationSection) {
+        if (configurationSection == null) return itemStack;
+        if (!configurationSection.isInt("custom-model-data")) return itemStack;
+        setCustomModelData(configurationSection.getInt("custom-model-data"));
+        return itemStack;
+    }
+
+    private ItemStack applyEnchantments(final ConfigurationSection configurationSection) {
+        if (configurationSection == null) return itemStack;
+        if (!configurationSection.isList("enchantments")) return itemStack;
+        Map<String, Integer> enchantments = new HashMap<>();
+        for (String enchantment : configurationSection.getStringList("enchantments")) {
+            String[] split = enchantment.split(":");
+            if (split.length == 2) {
+                enchantments.put(split[0], Integer.parseInt(split[1]));
+            }
+        }
+        addEnchantments(enchantments, true);
+        return itemStack;
+    }
+
+    private ItemStack applyItemFlags(final ConfigurationSection configurationSection) {
+        if (configurationSection == null) return itemStack;
+        if (!configurationSection.isList("item-flags")) return itemStack;
+        addItemFlags(configurationSection.getStringList("item-flags"));
         return itemStack;
     }
 
     public ItemStack build(ConfigurationSection section) {
 
-        if (section == null) return null;
-
-        if (section.contains("material")) {
-            setMaterial(Material.valueOf(section.getString("material")));
-        }
-
-        if (section.contains("amount")) {
-            setAmount(section.getInt("amount"));
-        }
-
-        if (section.contains("display-name")) {
-            setDisplayName(section.getString("display-name"));
-        }
-
-        if (section.contains("lore") || section.contains("description")) {
-            setLore(section.getStringList("lore"));
-        }
-
-        if (section.contains("custom-model-data")) {
-            setCustomModelData(section.getInt("custom-model-data"));
-        }
-
-        if (section.contains("enchantments")) {
-
-            Map<String, Integer> enchantments = new HashMap<>();
-            for (String enchantment : section.getStringList("enchantments")) {
-                String[] split = enchantment.split(":");
-                if (split.length == 2) {
-                    enchantments.put(split[0], Integer.parseInt(split[1]));
-                }
-            }
-            addEnchantments(enchantments, true);
-        }
-
-        if (section.contains("item-flags")) {
-            addItemFlags(section.getStringList("item-flags"));
-        }
-
-        if (section.getString("material").equalsIgnoreCase("PLAYER_HEAD") && section.contains("skull-owner")) {
-            setSkullOwner(section.getString("skull-owner"));
-            itemStack.setItemMeta(skullMeta);
-        }
+        applyMaterial(section);
+        applySkullOwner(section);
+        applyAmount(section);
+        applyCustomModelData(section);
+        applyDisplayName(section);
+        applyLore(section);
+        applyEnchantments(section);
+        applyItemFlags(section);
 
         return build();
+    }
+
+    public ItemStack build() {
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
     }
 }
