@@ -1,5 +1,7 @@
 package com.reussy.development.bukkit.plugin;
 
+import com.reussy.development.api.ExodusAPI;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.annotation.plugin.Description;
 import org.bukkit.plugin.java.annotation.plugin.Plugin;
@@ -15,6 +17,8 @@ public class ExodusJavaPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        ExodusAPI exodusAPI = new WrapperExodusAPI();
+        this.getServer().getServicesManager().register(ExodusAPI.class, exodusAPI, this, ServicePriority.High);
         getLogger().info("exodus has been enabled!");
     }
 
