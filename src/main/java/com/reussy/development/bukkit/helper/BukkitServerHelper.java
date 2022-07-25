@@ -10,11 +10,9 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 /**
- *
  * Methods to facilitate in-game messages
  *
  * @author Ricardo (reussy)
- *
  */
 
 public class BukkitServerHelper {
@@ -30,7 +28,7 @@ public class BukkitServerHelper {
     }
 
     /**
-     * Add color to the message given.
+     * Add color to the list of messages given.
      *
      * @param message The message to colorize.
      * @return returns the message colorized.
@@ -70,9 +68,11 @@ public class BukkitServerHelper {
      *
      * @param player  The player related.
      * @param message The message to send.
+     * @apiNote If the message is null or empty, nothing will be sent.
      */
     public void send(Player player, String message) {
         if (message == null || player == null) return;
+        if (message.isEmpty()) return;
         player.sendMessage(colorize(message));
     }
 
