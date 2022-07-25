@@ -1,11 +1,8 @@
 plugins {
-    id 'maven-publish'
     id 'java'
+    id 'maven-publish'
     id "com.github.johnrengelman.shadow" version "7.1.0"
 }
-
-sourceCompatibility = 16
-targetCompatibility = 16
 
 group 'com.reussy.development'
 version '0.0.1'
@@ -32,6 +29,10 @@ dependencies {
     implementation "io.papermc:paperlib:1.0.7"
 }
 
+test {
+    useJUnitPlatform()
+}
+
 shadowJar {
     relocate "io.papermc.lib", "com.reussy.development.libs.paperlib"
 }
@@ -46,8 +47,4 @@ publishing {
             from components.java
         }
     }
-}
-
-test {
-    useJUnitPlatform()
 }
