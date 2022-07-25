@@ -17,7 +17,7 @@ import java.util.List;
  *
  */
 
-public class ServerUtils{
+public class BukkitServerHelper {
 
     /**
      * Add color to the message given.

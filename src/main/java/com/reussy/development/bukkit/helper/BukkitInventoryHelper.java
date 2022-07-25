@@ -1,10 +1,9 @@
 package com.reussy.development.bukkit.helper;
 
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class InventoryUtils {
+public class BukkitInventoryHelper {
 
     /**
      * Check if the inventory contains the item.
@@ -28,6 +27,7 @@ public class InventoryUtils {
      * Get the item in the inventory by the slot.
      *
      * @param inventory The inventory to check.
+     * @param slot The slot to get the item from.
      * @return The item in the slot.
      */
     public ItemStack getItem(Inventory inventory, int slot){
