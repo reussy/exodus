@@ -24,8 +24,4 @@ public class ExodusJavaPlugin extends JavaPlugin {
         ExodusAPI exodusAPI = new WrapperExodusAPI();
         this.getServer().getServicesManager().register(ExodusAPI.class, exodusAPI, this, ServicePriority.High);
     }
-
-    @Override
-    public void onDisable() {
-    }
 }
