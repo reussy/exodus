@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.annotation.plugin.Plugin;
 import org.bukkit.plugin.java.annotation.plugin.Website;
 import org.bukkit.plugin.java.annotation.plugin.author.Author;
 
-@Plugin(name = "exodus", version = "0.0.1")
+@Plugin(name = "exodus", version = "0.1")
 @Description("API for easier creation of plugins.")
 @Author("Ricardo (reussy)")
 @ApiVersion(ApiVersion.Target.v1_18)
