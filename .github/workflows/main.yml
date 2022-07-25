@@ -25,4 +25,4 @@ jobs:
       - name: Make Gradle executable
         run: chmod +x ./gradlew
       - name: Unit tests
-        run: bash cd [projectFolder] && ./gradlew test --stacktrace
+        run: bash ./gradlew test --stacktrace
