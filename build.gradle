@@ -1,6 +1,6 @@
 plugins {
-    id 'java'
     id 'maven-publish'
+    id 'java'
     id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
@@ -39,9 +39,10 @@ shadowJar {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId = 'org.gradle.sample'
-            artifactId = 'library'
-            version = '1.1'
+            groupId = 'org.eljabali.sami.example'
+            artifactId = 'example'
+            version = '0.1'
+
             from components.java
         }
     }
